@@ -2,15 +2,20 @@ from data import *
 from random import randint
 
 class Agent:
-    chromosomes: list = []
-    fitness: int = -1
+    chromosomes: list
+    fitness: int
 
-    def __init__(self, size: int, dataset: Data, chromosomes: list = False):
+    def __init__(self, dataset: Data, chromosomes: list = False, size: int = False):
+        self.fitness = 0
+        self.chromosomes = []
+
         if chromosomes:
             self.chromosomes = chromosomes[:]
+            for i in range(1, 193):
+                self.fitness += dataset.fitness_calc(self.chromosomes[i-1], self.chromosomes[i])
         else:
             while len(self.chromosomes) < size:
-                node = randint(0, size-1)
+                node = randint(1, size)
 
                 if node not in self.chromosomes:
                     self.chromosomes.append(node)
