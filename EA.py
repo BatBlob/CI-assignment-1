@@ -6,7 +6,7 @@ from selection import *
 # EA Parameters
 Population_no = 30
 Offspring_each_gen = 10
-Total_generations = 10000
+Total_generations = 100
 Mutation_rate = 0.5
 Data_type = 0
 Agent_size = 194
