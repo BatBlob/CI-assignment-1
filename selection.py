@@ -14,5 +14,5 @@ class selection:
         
     
     @staticmethod
-    def truncation(Population: list,  start: int, end: int) -> Agent:
+    def truncation(Population: list,  start: int, end: int) -> list:
         return sorted(Population, key=lambda x: x.fitness)[start:end]
