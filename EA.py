@@ -6,7 +6,7 @@ from selection import *
 # EA Parameters
 Population_no = 30
 Offspring_each_gen = 10
-Total_generations = 100
+Total_generations = 10000
 Mutation_rate = 0.5
 Data_type = 0
 Agent_size = 194
@@ -25,14 +25,20 @@ class EA:
         # Generate offsprings
         for i in range(0, Offspring_each_gen, 2):
             # Random
-            parent_1, parent_2 = selection.random(self.Population, 2)
+            # parent_1, parent_2 = selection.random(self.Population, 2)
 
             # Truncation
-            parent_1, parent_2 = selection.truncation(self.Population, i, i+2)
+            # parent_1, parent_2 = selection.truncation(self.Population, i, i+2)
             # parent_1, parent_2 = selection.truncation(self.Population, 0, 2)
 
             # Fitness Proportional
             # parent_1, parent_2 = selection.fitness_proportional(self.Population, 2)
+
+            # Binary Tournament
+            parent_1, parent_2 = selection.binary_tournament(self.Population, 2)
+
+            # Rank Based Selection
+            # parent_1, parent_2 = selection.rank_based(self.Population, 2)
 
             # Create child
             child_1, child_2 = reproduction.crossover(self.Dataset, Agent_size, parent_1, parent_2)
@@ -49,10 +55,16 @@ class EA:
         # agents_to_die = selection.random(self.Population, len(self.Population) - Population_no)
 
         # Truncation
-        # agents_to_die = selection.truncation(self.Population, Population_no, len(self.Population))
+        agents_to_die = selection.truncation(self.Population, Population_no, len(self.Population))
 
         # Fitness Proportional
-        agents_to_die = selection.fitness_proportional(self.Population, Offspring_each_gen)
+        # agents_to_die = selection.fitness_proportional(self.Population, Offspring_each_gen)
+
+        # Binary Tournament
+        # agents_to_die = selection.binary_tournament(self.Population, Offspring_each_gen)
+
+        # Rank Based Selection
+        agents_to_die = selection.rank_based(self.Population, Offspring_each_gen)
 
         for i in agents_to_die:
             self.Population.remove(i)
