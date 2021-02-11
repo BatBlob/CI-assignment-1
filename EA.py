@@ -22,16 +22,60 @@ class EA:
             self.Population.append( Agent(dataset = self.Dataset, size = Agent_size) )    
 
     def generate_offspring(self):
-        # Select Parents
+        # Generate offsprings
+        for i in range(0, Offspring_each_gen, 2):
+            # Random
+            # parent_1, parent_2 = selection.random(self.Population)
+
+            # Truncation
+            parent_1, parent_2 = selection.truncation(self.Population, i, i+2)
+            # parent_1, parent_2 = selection.truncation(self.Population, 0, 2)
+
+            # Create child
+            child_1, child_2 = reproduction.crossover(self.Population, self.Dataset, Agent_size, parent_1, parent_2)
+
+            # Add child to Population
+            self.Population.append(child_1); self.Population.append(child_2)
+        
+    def kill_agents(self):
+        # Kill agents
+
+        # Random
         # parent_1, parent_2 = selection.random(self.Population)
-        parent_1, parent_2 = selection.truncation(self.Population)
 
-        # Create child
-        child_1, child_2 = reproduction.crossover(self.Population, self.Dataset, Agent_size, parent_1, parent_2)
+        # Truncation
+        agents_to_die = selection.truncation(self.Population, Population_no, len(self.Population))
 
-        # Add child to Population
-        self.Population.append(child_1); self.Population.append(child_2)
+        for i in agents_to_die:
+            self.Population.remove(i)
+
+        
         
 Evol_Algo = EA()
-Evol_Algo.generate_offspring()
-print(Evol_Algo.Population[-4].fitness)
+
+a = float("inf")
+for i in Evol_Algo.Population:
+    a = min(i.fitness, a)
+# print(a)
+
+for i in range(Total_generations):
+    a = 0#float("inf")
+    for j in Evol_Algo.Population:
+        a = max(j.fitness, a)
+    print(a)
+
+    Evol_Algo.generate_offspring()
+    Evol_Algo.kill_agents()
+
+# print(Evol_Algo.Population[-4].fitness)
+# print(sorted(Evol_Algo.Population, key=lambda x: x.fitness)[0])
+
+# for i in Evol_Algo.Population:
+    # print(i.fitness)
+
+a = float("inf")
+for i in Evol_Algo.Population:
+    a = min(i.fitness, a)
+# print(a)
+
+print(len(Evol_Algo.Population))
