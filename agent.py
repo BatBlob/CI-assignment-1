@@ -1,5 +1,5 @@
 from data import *
-from random import randint
+import random
 
 class Agent:
     chromosomes: list
@@ -15,7 +15,7 @@ class Agent:
                 self.fitness += dataset.fitness_calc(self.chromosomes[i-1], self.chromosomes[i])
         else:
             while len(self.chromosomes) < size:
-                node = randint(1, size)
+                node = random.randint(1, size)
 
                 if node not in self.chromosomes:
                     self.chromosomes.append(node)

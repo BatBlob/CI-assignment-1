@@ -28,11 +28,14 @@ class EA:
             parent_1, parent_2 = selection.random(self.Population, 2)
 
             # Truncation
-            # parent_1, parent_2 = selection.truncation(self.Population, i, i+2)
+            parent_1, parent_2 = selection.truncation(self.Population, i, i+2)
             # parent_1, parent_2 = selection.truncation(self.Population, 0, 2)
 
+            # Fitness Proportional
+            # parent_1, parent_2 = selection.fitness_proportional(self.Population, 2)
+
             # Create child
-            child_1, child_2 = reproduction.crossover(self.Population, self.Dataset, Agent_size, parent_1, parent_2)
+            child_1, child_2 = reproduction.crossover(self.Dataset, Agent_size, parent_1, parent_2)
             reproduction.mutation(child_1, Agent_size)
             reproduction.mutation(child_2, Agent_size)
 
@@ -46,7 +49,10 @@ class EA:
         # agents_to_die = selection.random(self.Population, len(self.Population) - Population_no)
 
         # Truncation
-        agents_to_die = selection.truncation(self.Population, Population_no, len(self.Population))
+        # agents_to_die = selection.truncation(self.Population, Population_no, len(self.Population))
+
+        # Fitness Proportional
+        agents_to_die = selection.fitness_proportional(self.Population, Offspring_each_gen)
 
         for i in agents_to_die:
             self.Population.remove(i)
@@ -70,9 +76,9 @@ for i in range(Total_generations):
 # for i in Evol_Algo.Population:
 #     print(i.fitness)
 
-# a = float("inf")
-# for i in Evol_Algo.Population:
-#     a = min(i.fitness, a)
-# print(a)
+a = float("inf")
+for i in Evol_Algo.Population:
+    a = min(i.fitness, a)
+print(a)
 
 # print(len(Evol_Algo.Population))
