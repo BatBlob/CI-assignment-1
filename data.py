@@ -6,7 +6,7 @@ class Data:
         self.data_type = data_type
         self.nodes = {}
 
-        if data_type == 1:
+        if data_type == 0:
             f = open('tsp_datasets/Qatar_Dataset.tsp', 'r')
             lines = f.read().splitlines()
             f.close()
@@ -14,8 +14,8 @@ class Data:
             for i in lines[7 : len(lines)-1]:
                 node = i.split()
                 self.nodes[int(node[0])] = ( float(node[1]), float(node[2]) )
-        elif data_type == 2:
-            f = open('knapsack_instances/low-dimensional/f8_l-d_kp_23_10000', 'r')
+        elif data_type == 1:
+            f = open('knapsack_instances/low-dimensional/f2_l-d_kp_20_878', 'r')
             lines = f.read().splitlines()
             f.close()
 

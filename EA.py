@@ -55,7 +55,7 @@ class EA:
         # agents_to_die = selection.random(self.Population, len(self.Population) - Population_no)
 
         # Truncation
-        agents_to_die = selection.truncation(self.Population, Population_no, len(self.Population))
+        # agents_to_die = selection.truncation(self.Population, Population_no, len(self.Population))
 
         # Fitness Proportional
         # agents_to_die = selection.fitness_proportional(self.Population, Offspring_each_gen)
