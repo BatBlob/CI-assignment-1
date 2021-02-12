@@ -6,13 +6,22 @@ class Data:
         self.data_type = data_type
         self.nodes = {}
 
-        f = open('tsp_datasets/Qatar_Dataset.tsp', 'r')
-        lines = f.read().splitlines()
-        f.close()
+        if data_type == 1:
+            f = open('tsp_datasets/Qatar_Dataset.tsp', 'r')
+            lines = f.read().splitlines()
+            f.close()
 
-        for i in lines[7 : len(lines)-1]:
-            node = i.split()
-            self.nodes[int(node[0])] = ( float(node[1]), float(node[2]) )
+            for i in lines[7 : len(lines)-1]:
+                node = i.split()
+                self.nodes[int(node[0])] = ( float(node[1]), float(node[2]) )
+        elif data_type == 2:
+            f = open('knapsack_instances/low-dimensional/f8_l-d_kp_23_10000', 'r')
+            lines = f.read().splitlines()
+            f.close()
+
+            for i in lines[7 : len(lines)-1]:
+                node = i.split()
+                self.nodes[int(node[0])] = ( float(node[1]), float(node[2]) )
 
     def fitness_calc(self, node1, node2):
         if self.data_type == 0:
