@@ -16,10 +16,14 @@ class EA:
     Dataset: Data
 
     def __init__(self):
+        global Agent_size
         self.Population = []
         self.Dataset = Data(Data_type)
+
+        if Data_type == 1: Agent_size = self.Dataset.total_agents
+       
         for _ in range(Population_no):
-            self.Population.append( Agent(dataset = self.Dataset, size = Agent_size) )    
+            self.Population.append( Agent(dataset = self.Dataset, size = Agent_size) )
 
     def generate_offspring(self):
         # Generate offsprings
@@ -42,8 +46,9 @@ class EA:
 
             # Create child
             child_1, child_2 = reproduction.crossover(self.Dataset, Agent_size, parent_1, parent_2)
-            reproduction.mutation(child_1, Agent_size)
-            reproduction.mutation(child_2, Agent_size)
+            reproduction.mutation(child_1, Agent_size, dataset=self.Dataset)
+            reproduction.mutation(child_2, Agent_size, self.Dataset)
+
 
             # Add child to Population
             self.Population.append(child_1); self.Population.append(child_2)
@@ -55,7 +60,7 @@ class EA:
         # agents_to_die = selection.random(self.Population, len(self.Population) - Population_no)
 
         # Truncation
-        # agents_to_die = selection.truncation(self.Population, Population_no, len(self.Population))
+        agents_to_die = selection.truncation(self.Population, Population_no, len(self.Population))
 
         # Fitness Proportional
         # agents_to_die = selection.fitness_proportional(self.Population, Offspring_each_gen)
@@ -64,7 +69,7 @@ class EA:
         # agents_to_die = selection.binary_tournament(self.Population, Offspring_each_gen)
 
         # Rank Based Selection
-        agents_to_die = selection.rank_based(self.Population, Offspring_each_gen)
+        # agents_to_die = selection.rank_based(self.Population, Offspring_each_gen)
 
         for i in agents_to_die:
             self.Population.remove(i)
@@ -91,6 +96,8 @@ for i in range(Total_generations):
 a = float("inf")
 for i in Evol_Algo.Population:
     a = min(i.fitness, a)
+
 print(a)
+print(1/a)
 
 # print(len(Evol_Algo.Population))
