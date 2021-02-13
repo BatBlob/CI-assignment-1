@@ -20,7 +20,7 @@ class reproduction:
 
         skipped = False
         counter = 0
-        while p1_ptr < agent_size and c1_ptr < agent_size :
+        while p1_ptr < agent_size and c1_ptr < agent_size and chromosomes_1[-1] == -1 :
             tmp = parent1.chromosomes[p1_ptr]
             if tmp not in chromosomes_1:
                 chromosomes_1[c1_ptr] = tmp
@@ -40,7 +40,7 @@ class reproduction:
             p1_ptr = (p1_ptr + 1) % agent_size
 
         skipped = False
-        while p2_ptr < agent_size and c2_ptr < agent_size :
+        while p2_ptr < agent_size and c2_ptr < agent_size and chromosomes_2[-1] == -1:
             tmp = parent2.chromosomes[p2_ptr]
             if tmp not in chromosomes_2:
                 chromosomes_2[c2_ptr] = tmp
