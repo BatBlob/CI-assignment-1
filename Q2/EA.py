@@ -6,7 +6,7 @@ from selection import *
 # EA Parameters
 Population_no = 30
 Offspring_each_gen = 10
-Total_generations = 100
+Total_generations = 1000
 Mutation_rate = 0.5
 Data_type = 0
 Agent_size = 500
@@ -47,8 +47,8 @@ class EA:
 
             # Create child
             child_1, child_2 = reproduction.crossover(self.Dataset, Agent_size, parent_1, parent_2)
-            reproduction.mutation(child_1, Agent_size, dataset=self.Dataset)
-            reproduction.mutation(child_2, Agent_size, self.Dataset)
+            # reproduction.mutation(child_1, Agent_size, dataset=self.Dataset)
+            # reproduction.mutation(child_2, Agent_size, self.Dataset)
 
 
             # Add child to Population
@@ -84,9 +84,20 @@ Evol_Algo = EA()
 #     a = min(i.fitness, a)
 # print(a)
 
-for i in range(Total_generations):
+for x in range(Total_generations):
     Evol_Algo.generate_offspring()
     Evol_Algo.kill_agents()
+    if x % 50 == 0:
+        print(x)
+        a = float("inf")
+        j = -1
+        for i in Evol_Algo.Population:
+            if a > i.fitness:
+                a = i.fitness
+                j = i
+        string= 'my_img'+str(x)+'.jpg'
+        j.img.save(string)
+
 
 # print(Evol_Algo.Population[-4].fitness)
 # print(sorted(Evol_Algo.Population, key=lambda x: x.fitness)[0])
@@ -95,8 +106,13 @@ for i in range(Total_generations):
 #     print(i.fitness)
 
 a = float("inf")
+j = -1
 for i in Evol_Algo.Population:
-    a = min(i.fitness, a)
+    if a > i.fitness:
+        a = i.fitness
+        j = i
+
+j.img.show()
 
 print(a)
 print(1/a)
