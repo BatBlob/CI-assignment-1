@@ -71,7 +71,7 @@ class selection:
         while len(selected_agents) < number_of_agents:
             random_no = random.random()
             for i in range(len(probability)):
-                if probability[i] < random_no:
+                if probability[i] > random_no:
                     if sorted_population[i] not in selected_agents:
                         selected_agents.append(sorted_population[i])
                         break
