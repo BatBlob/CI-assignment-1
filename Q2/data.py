@@ -11,7 +11,7 @@ class Data:
         self.total_agents = -1
 
         #open image and store as numpy array
-        image = Image.open(path)
+        image = Image.open(path).convert('L')
         img_data = numpy.asarray(image)
         
         #store converted pixel data into array

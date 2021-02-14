@@ -106,11 +106,15 @@ class reproduction:
             point1 = random.randint(0, len(child)-1)
 
             pts_lst = []
-            for i in range(3):
-                gene = (random.randint(0, dataset.width), random.randint(0, dataset.height)) # (x, y)
+            gene_orig = (random.randint(0, dataset.width), random.randint(0, dataset.height)) # (x, y)
+            pts_lst.append(gene_orig)
+            
+            for i in range(2):
+                gene = (gene_orig[0] + random.randint(-15, 15), gene_orig[1] + random.randint(-15, 15))
                 pts_lst.append(gene)
 
-            color = tuple(numpy.random.choice(range(256), size=3))
+            # color = f"#{random.randrange(0x1000000):06x}"
+            color = tuple(numpy.random.choice(range(256), size=1))
 
             new_poly = Polygon(pts_lst, color)
 

@@ -21,7 +21,7 @@ class Agent:
     def __init__(self, dataset: Data, chromosomes: list = False, size: int = False):
         self.fitness:int = 0
         self.chromosomes: "list[Polygon]" = [] #list of polygons (x,y)
-        self.img = Image.new("RGB", (dataset.width,dataset.height) )
+        self.img = Image.new("L", (dataset.width,dataset.height) )
 
 
         if chromosomes:
@@ -31,12 +31,16 @@ class Agent:
             
             while len(self.chromosomes) < size:
                 pts_lst = []
-                for i in range(3):
-                    gene = (random.randint(0, dataset.width), random.randint(0, dataset.height)) # (x, y)
+
+                gene_orig = (random.randint(0, dataset.width), random.randint(0, dataset.height)) # (x, y)
+                pts_lst.append(gene_orig)
+                
+                for i in range(2):
+                    gene = (gene_orig[0] + random.randint(-15, 15), gene_orig[1] + random.randint(-15, 15))
                     pts_lst.append(gene)
 
                 # color = f"#{random.randrange(0x1000000):06x}"
-                color = tuple(numpy.random.choice(range(256), size=3))
+                color = tuple(numpy.random.choice(range(256), size=1))
                 self.chromosomes.append(Polygon(pts_lst, color))
             
         self.draw_polygons()
@@ -50,18 +54,18 @@ class Agent:
             draw.polygon(polygon.points, polygon.color)
 
 
-l1 = [(0,1), (2,3), (1, 4)]
-l2 = [(0,1), (1, 4), (2,3)]
-l3 = [(0,1), (1, 4), (2,2)]
+# l1 = [(0,1), (2,3), (1, 4)]
+# l2 = [(0,1), (1, 4), (2,3)]
+# l3 = [(0,1), (1, 4), (2,2)]
 
-color = 122
-p1 = Polygon(l1, color)
-p2 = Polygon(l2, color)
-p3 = Polygon(l3, color)
+# color = 122
+# p1 = Polygon(l1, color)
+# p2 = Polygon(l2, color)
+# p3 = Polygon(l3, color)
 
-my_l = [p1]
+# my_l = [p1]
 
 
-print(p1 in my_l)
-print(p2 in my_l)
-print(p3 in my_l)
+# print(p1 in my_l)
+# print(p2 in my_l)
+# print(p3 in my_l)
